@@ -6,15 +6,15 @@ const Publicador = require("../models/Publicador")
 router.get("/getAll", async (req, res) =>{
     try{
         const publicadores= await Publicador.find()
-        res.json(publicadores)
+        res.status(200).json(publicadores)
     }catch(err){
         res.status(403).send({error: "Error de autorización"})
     }
 })
-router.get("/:id", async (req, res) =>{
+router.get("/:publicadorId", async (req, res) =>{
     try{
-        const receivedPublicador= await Publicador.findById(res.params.id)
-        res.json(receivedPublicador)
+        const receivedPublicador= await Publicador.findById(req.params.publicadorId)
+        res.status(200).json(receivedPublicador)
     }catch(err){
         res.status(403).send({error: "Error de autorización"})
     }
@@ -28,7 +28,7 @@ router.post("/", async (req,res) =>{
     })
     try{
         const savedPublicador = await publicador.save()
-        res.json(savedPublicador)
+        res.status(200).json(savedPublicador)
     }catch (err){
         res.status(403).send({error: "Error de autorización"})
     }
