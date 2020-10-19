@@ -17,10 +17,14 @@
   },
   "homepage": "https://github.com/starxmaker/rcch-backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
-    "nodemon": "^2.0.5"
+    "mongoose-sequence": "^5.3.0",
+    "nodemon": "^2.0.5",
+    "sqlitemongo": "^1.1.9"
   }
 }

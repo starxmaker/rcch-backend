@@ -1,18 +1,22 @@
 const mongoose = require("mongoose")
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const PublicadorSchema=mongoose.Schema({
     nombre: {
         type: String,
         required: true
     },
-    invitado: {
-        type: Boolean,
-        default:true
-    },
     grupo: {
         type: Number,
         default: 0
+    },
+    invitado: {
+        type: Number,
+        default:1
     }
+    
 })
 
-module.exports= mongoose.model("Publicadores", PublicadorSchema)
+PublicadorSchema.plugin(AutoIncrement, {inc_field: 'id'});
+
+module.exports= mongoose.model("publicadores", PublicadorSchema)
