@@ -14,7 +14,7 @@ router.get("/getAll", async (req, res) =>{
 })
 router.get("/:publicadorId", async (req, res) =>{
     try{
-        const receivedPublicador= await Publicador.findOne({ 'id': req.params.publicadorId })
+        const receivedPublicador= await Publicador.findOne({ 'idPublicador': req.params.publicadorId })
         res.status(200).json(receivedPublicador)
     }catch(err){
         res.status(403).send()
@@ -32,6 +32,15 @@ router.post("/", async (req,res) =>{
         res.status(200).json(savedPublicador)
     }catch (err){
         res.status(403).send({error: "Error de autorización"})
+    }
+})
+
+router.delete("/:publicadorId", async (req, res) =>{
+    try{
+        await Publicador.remove({ 'idPublicador': req.params.publicadorId })
+        res.status(200).json({message: "publicador eliminado"})
+    }catch(err){
+        res.status(403).send("Error de autorización")
     }
 })
 

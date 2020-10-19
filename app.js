@@ -13,6 +13,9 @@ app.set("llave", process.env.JWT_KEY)
 //middlewares
 
 app.use((req, res, next) => {
+
+    next()  //eliminar una vez en produccion
+    return; //eliminar una vez en producción
     if (req.url=="/usuarios/login"){
         next()
         return;
@@ -48,9 +51,11 @@ app.use("/publicadores", publicadoresRoutes)
 const usuariosRoutes = require("./routes/usuarios")
 app.use("/usuarios", usuariosRoutes)
 
-app.get("/", (req, res) =>{
-    res.send("Prueba de funcionamiento")
-})
+const mediosRoutes = require("./routes/medios")
+app.use("/medios", mediosRoutes)
+const publicosRoutes = require("./routes/publicos")
+app.use("/publicos", publicosRoutes)
+
 
 //base de datos
 

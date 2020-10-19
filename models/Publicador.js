@@ -17,6 +17,6 @@ const PublicadorSchema=mongoose.Schema({
     
 })
 
-PublicadorSchema.plugin(AutoIncrement, {inc_field: 'id'});
+PublicadorSchema.plugin(AutoIncrement, {inc_field: 'idPublicador', start_seq: 1000});
 
 module.exports= mongoose.model("publicadores", PublicadorSchema)
