@@ -56,6 +56,9 @@ app.use("/medios", mediosRoutes)
 const publicosRoutes = require("./routes/publicos")
 app.use("/publicos", publicosRoutes)
 
+const recordsRoutes = require("./routes/records")
+app.use("/records", recordsRoutes)
+
 
 //base de datos
 
