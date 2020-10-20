@@ -37,13 +37,13 @@ async function getStats(year, month, day){
                             .group({_id: "$medio", cantidad: { $sum: 1 }})
                             .lookup({from: "medios", localField: "_id", foreignField: "idMedio", as: "Medio"})
                             .unwind("$Medio")
-                            .project({ "nombre" : "$Medio.nombre", "color": "$Medio.color", "total": "$cantidad"})
+                            .project({ "title" : "$Medio.nombre", "color": "$Medio.color", "value": "$cantidad"})
         const publicos=await Record.aggregate()
                             .match(filters)
                             .group({_id: "$publico", cantidad: { $sum: 1 }})
                             .lookup({from: "publicos", localField: "_id", foreignField: "idPublico", as: "Publico"})
                             .unwind("$Publico")
-                            .project({ "nombre" : "$Publico.nombre", "color": "$Publico.color", "total": "$cantidad"})  
+                            .project({ "title" : "$Publico.nombre", "color": "$Publico.color", "value": "$cantidad"})  
         
         var porPublicador=0
         if (countCartas!=0 && countPublicadores.length!=0) porPublicador=countCartas/countPublicadores.length
