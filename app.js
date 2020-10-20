@@ -35,6 +35,8 @@ app.use("/records", recordsRoutes)
 
 const estadisticasRoutes = require("./routes/estadisticas")
 app.use("/estadisticas", estadisticasRoutes)
+const miscRoutes = require("./routes/misc")
+app.use("/misc", miscRoutes)
 
 
 //base de datos

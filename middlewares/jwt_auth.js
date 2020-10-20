@@ -6,14 +6,14 @@ module.exports = function authenticateJWT (req,res,next){
     if (token) {
       jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {      
         if (err) {
-          return res.json({ mensaje: 'Token inválida' });    
+          return res.status(403).json({ mensaje: 'Token inválida' });    
         } else {
           req.decoded = decoded;    
           next();
         }
       });
     } else {
-      res.send({ 
+      res.status(403).send({ 
           mensaje: 'Token no provista.' 
       });
     }

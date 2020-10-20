@@ -31,7 +31,7 @@ router.post("/login", (req,res) =>{
         if (user) {
             
                const token = jwt.sign({check:true}, process.env.JWT_KEY, {
-                expiresIn: 1440
+                expiresIn: 10800
                });
                res.json({
                 mensaje: 'Autenticación correcta',

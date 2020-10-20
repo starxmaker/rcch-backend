@@ -9,6 +9,7 @@ const Record = require("../models/Record")
 router.get("/getAll", async (req, res) =>{
     try{
         const records= await Record.find().sort({'_id': -1})
+        
          
         res.status(200).json(records)
     }catch(err){
@@ -18,8 +19,28 @@ router.get("/getAll", async (req, res) =>{
 
 router.get("/getLast", async (req, res) =>{
     try{
-        const records= await Record.find().sort({'_id': -1}).limit(50)
-         
+        const records= await Record.aggregate()
+        .lookup({from: "medios", localField: "medio", foreignField: "idMedio", as: "Medio"})
+        .unwind("$Medio")
+        .lookup({from: "publicadores", localField: "publicador", foreignField: "idPublicador", as: "Publicador"})
+        .unwind("$Publicador")
+        .lookup({from: "publicos", localField: "publico", foreignField: "idPublico", as: "Publico"})
+        .unwind("$Publico")
+        .project({
+             "id": "$idRecord",
+             "hora_year":"$hora_year",
+             "hora_month": "$hora_month",
+             "hora_day": "$hora_day",
+             "hora_hour": "$hora_hour",
+             "hora_minute": "$hora_minute",
+             "hora_second": "$hora_second",
+             "textos": "$textos",
+             "tipo": "$tipo",
+             "medio" : "$Medio.nombre",
+             "publicador" : "$Publicador.nombre",
+             "publico": "$Publico.nombre"
+        }).sort({'_id': -1}).limit (50)
+          
         res.status(200).json(records)
     }catch(err){
         res.status(403).send({error: "Error de autorización"})
