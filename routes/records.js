@@ -39,7 +39,7 @@ router.get("/getLast", async (req, res) =>{
              "medio" : "$Medio.nombre",
              "publicador" : "$Publicador.nombre",
              "publico": "$Publico.nombre"
-        }).sort({'_id': -1}).limit (50)
+        }).sort({'id': -1}).limit (50)
           
         res.status(200).json(records)
     }catch(err){
