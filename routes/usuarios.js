@@ -1,6 +1,7 @@
 const express= require("express")
 const router= express.Router()
 const jwt=require("jsonwebtoken")
+require("dotenv/config")
 
 const Usuario = require("../models/Usuario")
 
@@ -29,7 +30,7 @@ router.post("/login", (req,res) =>{
         Usuario.getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
         if (user) {
             
-               const token = jwt.sign({check:true}, req.app.get('llave'), {
+               const token = jwt.sign({check:true}, process.env.JWT_KEY, {
                 expiresIn: 1440
                });
                res.json({

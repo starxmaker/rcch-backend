@@ -1,5 +1,9 @@
 const express= require("express")
 const router= express.Router()
+const authenticateJWT = require("../middlewares/jwt_auth")
+
+router.use(authenticateJWT)
+
 
 const Medio = require("../models/Medio")
 

@@ -1,11 +1,24 @@
 const express= require("express")
 const router= express.Router()
+const authenticateJWT = require("../middlewares/jwt_auth")
+
+router.use(authenticateJWT)
 
 const Record = require("../models/Record")
 
 router.get("/getAll", async (req, res) =>{
     try{
-        const records= await Record.find()
+        const records= await Record.find().sort({'_id': -1})
+         
+        res.status(200).json(records)
+    }catch(err){
+        res.status(403).send({error: "Error de autorización"})
+    }
+})
+
+router.get("/getLast", async (req, res) =>{
+    try{
+        const records= await Record.find().sort({'_id': -1}).limit(50)
          
         res.status(200).json(records)
     }catch(err){
