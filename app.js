@@ -33,6 +33,9 @@ app.use("/publicos", publicosRoutes)
 const recordsRoutes = require("./routes/records")
 app.use("/records", recordsRoutes)
 
+const listasRoutes = require("./routes/listas")
+app.use("/listas", listasRoutes)
+
 const estadisticasRoutes = require("./routes/estadisticas")
 app.use("/estadisticas", estadisticasRoutes)
 const miscRoutes = require("./routes/misc")
