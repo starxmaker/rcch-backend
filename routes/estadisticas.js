@@ -44,13 +44,20 @@ async function getStats(year, month, day){
                             .lookup({from: "publicos", localField: "_id", foreignField: "idPublico", as: "Publico"})
                             .unwind("$Publico")
                             .project({ "title" : "$Publico.nombre", "color": "$Publico.color", "value": "$cantidad"})  
+        const revisitaDiff=[{
+            "title": "Revisitas",
+            "color": "Orange",
+            "value": sumRevisitas
+        }, {
+            "title": "Primera conversación",
+            "color": "Purple",
+            "value": countCartas-sumRevisitas
+        }]                    
         
-        var porPublicador=0
-        if (countCartas!=0 && countPublicadores.length!=0) porPublicador=countCartas/countPublicadores.length
-        const stats={cartas: countCartas, publicadores: countPublicadores.length, textos: sumTextos, revisitas: sumRevisitas, porPublicador: porPublicador, medios: medios, publicos:publicos}
+        const stats={cartas: countCartas, publicadores: countPublicadores.length, textos: sumTextos, revisitas: sumRevisitas, medios: medios, publicos:publicos, revisitaDiff:revisitaDiff}
         return stats
     }catch(err){
-        return {cartas: 0, publicadores: 0, textos: 0, revisitas: 0, porPublicador: 0, medios: 0, publicos:0}
+        return {cartas: 0, publicadores: 0, textos: 0, revisitas: 0,  medios: 0, publicos:0, revisitaDiff: 0}
        
     }
 }
