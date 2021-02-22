@@ -18,6 +18,14 @@ const RecordSchema=mongoose.Schema({
         type: Number,
         default: 0
     },
+    videoAdjunto: {
+        type: Boolean,
+        default: false
+    },
+    publicacionAdjunta: {
+        type: Boolean,
+        default: false
+    },
     tipo: {
         type: Number,
         default: 0

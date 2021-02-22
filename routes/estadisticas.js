@@ -20,6 +20,10 @@ async function getStats(year, month, day){
     try{
         const filters={hora_year: {$eq: parseInt(year)}, hora_month: {$eq: parseInt(month)}, hora_day: {$eq: parseInt(day)}}
         const countCartas= await Record.countDocuments(filters)
+        const filtersVideos={...filters, videoAdjunto: {$eq: true}}
+        const countVideos= await Record.countDocuments(filtersVideos)
+        const filtersPublicaciones={...filters, publicacionAdjunta: {$eq: true}}
+        const countPublicaciones= await Record.countDocuments(filtersPublicaciones)
         const countPublicadores= await Record.find(filters).distinct("publicador")
         const textos= await Record.aggregate()
                                     .match(filters)
@@ -54,10 +58,10 @@ async function getStats(year, month, day){
             "value": countCartas-sumRevisitas
         }]                    
         
-        const stats={cartas: countCartas, publicadores: countPublicadores.length, textos: sumTextos, revisitas: sumRevisitas, medios: medios, publicos:publicos, revisitaDiff:revisitaDiff}
+        const stats={cartas: countCartas, publicadores: countPublicadores.length, textos: sumTextos, revisitas: sumRevisitas, medios: medios, publicos:publicos, revisitaDiff:revisitaDiff, publicaciones: countPublicaciones, videos: countVideos}
         return stats
     }catch(err){
-        return {cartas: 0, publicadores: 0, textos: 0, revisitas: 0,  medios: 0, publicos:0, revisitaDiff: 0}
+        return {cartas: 0, publicadores: 0, textos: 0, revisitas: 0,  medios: 0, publicos:0, revisitaDiff: 0, publicaciones: 0, videos: 0}
        
     }
 }

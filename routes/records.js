@@ -36,6 +36,8 @@ router.get("/getLast", async (req, res) =>{
              "hora_second": "$hora_second",
              "textos": "$textos",
              "tipo": "$tipo",
+             "videoAdjunto": "$videoAdjunto",
+             "publicacionAdjunta": "$publicacionAdjunta",
              "medio" : "$Medio.nombre",
              "publicador" : "$Publicador.nombre",
              "publico": "$Publico.nombre"
@@ -74,7 +76,9 @@ router.post("/", async (req,res) =>{
         medio: req.body.medio,
         publico:req.body.publico,
         textos: req.body.textos,
-        tipo: req.body.tipo
+        tipo: req.body.tipo,
+        videoAdjunto: req.body.videoAdjunto,
+        publicacionAdjunta: req.body.publicacionAdjunta
     })
     try{
         const savedRecord = await record.save()
