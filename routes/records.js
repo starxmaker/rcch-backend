@@ -71,17 +71,22 @@ router.get("/:recordId", async (req, res) =>{
 })
 
 router.post("/", async (req,res) =>{
-    const record= new Record({
-        publicador: req.body.publicador,
-        medio: req.body.medio,
-        publico:req.body.publico,
-        textos: req.body.textos,
-        tipo: req.body.tipo,
-        videoAdjunto: req.body.videoAdjunto,
-        publicacionAdjunta: req.body.publicacionAdjunta
-    })
+    const copies = req.body.copies || 1
+   
     try{
-        const savedRecord = await record.save()
+        let savedRecord
+        for (let i = 0; i < copies; i++){
+            const record= new Record({
+                publicador: req.body.publicador,
+                medio: req.body.medio,
+                publico:req.body.publico,
+                textos: req.body.textos,
+                tipo: req.body.tipo,
+                videoAdjunto: req.body.videoAdjunto,
+                publicacionAdjunta: req.body.publicacionAdjunta
+            })
+            savedRecord = await record.save()
+        }
         res.status(200).json(savedRecord)
     }catch (err){
         res.status(403).send({error: "Error de autorización"})
